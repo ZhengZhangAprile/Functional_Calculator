@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         gridView.setAdapter(new GridViewAdapter(this));
 
         textView = (TextView) findViewById(R.id.textView);
+
         refresh = true;
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -152,9 +153,14 @@ public class MainActivity extends AppCompatActivity {
                         textView.setText(nstr);
                         refresh = true;
                         break;
-
-
                 }
+                System.out.println(textView.getText().length());
+                if(textView.getText().length()>8&&textView.getText().length()<12)
+                    textView.setTextSize(64);
+                else if(textView.getText().length()>11&&textView.getText().length()<15)
+                    textView.setTextSize(48);
+                else if(textView.getText().length()>14)
+                    textView.setTextSize(36);
             }
         });
     }

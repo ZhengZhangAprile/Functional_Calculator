@@ -43,7 +43,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="0"
-        android:textSize="84dp"
+        android:textSize="72dp"
         android:id="@+id/textView"
         android:gravity="right"
         android:layout_above="@+id/gridView"
