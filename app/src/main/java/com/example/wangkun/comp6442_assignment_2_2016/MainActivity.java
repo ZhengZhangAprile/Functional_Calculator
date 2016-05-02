@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         gridView = (GridView) findViewById(R.id.gridView);
         registerForContextMenu(gridView);
 
-        gridView.setAdapter(new GridViewAdapter(this));
+        gridView.setAdapter(new GridViewAdapter(this));//set the gridview adapter.
 
         textView = (TextView) findViewById(R.id.textView);
 
@@ -155,14 +155,61 @@ public class MainActivity extends AppCompatActivity {
                             refresh = true;
                             break;
                         }
+
+                        char[] operators = {'+','-','×','/','.'};
+//                        char[] brackets = {'(',')'};
                         nstr = textView.getText().toString();
-                        Expression expression = Expression.parse(nstr);
-                        nstr = expression.evaluate() + "";
-                        textView.setText(nstr);
+
+                        //judge if this expression is legal for parse.
+                        //the number of front and back brackets is same
+                        int front = 0, back = 0;
+                        for (char c : nstr.toCharArray()) {
+                            if (c == '(')
+                                front++;
+                            if (c == ')')
+                                back++;
+                        }
+                        if (front != back)
+                            textView.setText("error");
+                        else {
+                            char c = nstr.charAt(nstr.length() - 1);
+                            System.out.println(c);
+                            int flag=0;// when flag=0 represents the statement is wrong. flag=1 true.
+                           for(int i=0;i<operators.length;i++) {
+                               System.out.println(c == operators[i]);
+                               if (c == operators[i]) {
+                                   flag = 1;
+                                   textView.setText("error");
+                               }//last element can't be an operator.
+
+                            }
+                            A:if(flag==0){//deal with two operators near by each other, include '(' with '+','-','*','/',
+                                    //and '+','-','*','/' with ')'
+                                    for(int k=0;k<nstr.length();k++){
+                                        for(int j=0;j<operators.length;j++){
+                                            if(nstr.charAt(k)==operators[j]||nstr.charAt(k)=='(')
+                                                for(int l=0;l<operators.length;l++){
+                                                    if(nstr.charAt(k+1)==operators[l]||nstr.charAt(k+1)==')'){
+                                                        textView.setText("error");
+                                                        break A;
+                                                    }
+                                                }
+                                        }
+                                    }
+                                    //no error, can evaluate the expression
+                                    Expression expression = Expression.parse(nstr);
+                                    nstr = expression.evaluate() + "";
+                                    textView.setText(nstr);
+                            }
+                        }
+
                         refresh = true;
                         break;
+
                 }
 
+
+                // Minimise the text size when the digits of input number increasing.
                 if (textView.getText().length() > 8 && textView.getText().length() < 12)
                     textView.setTextSize(64);
                 else if (textView.getText().length() > 11 && textView.getText().length() < 15)
@@ -173,7 +220,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
+    //conduct a GridView adapter to modify the gridview. Adding
+    //textView to show the calculator keywords and lines between them.
     private class GridViewAdapter extends BaseAdapter {
 
         private Context context;
@@ -200,6 +248,8 @@ public class MainActivity extends AppCompatActivity {
             return position;
         }
 
+
+        //this method is for set the items' attributes.
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             TextView result = new TextView(context);
@@ -209,7 +259,7 @@ public class MainActivity extends AppCompatActivity {
             result.setTextSize(66);
             result.setLayoutParams(new AbsListView.LayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)));
             result.setGravity(Gravity.CENTER);
-            result.setBackgroundColor(Color.LTGRAY); //设置背景颜色
+            result.setBackgroundColor(Color.LTGRAY); //set items' background color.
             return result;
         }
 

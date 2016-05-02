@@ -14,6 +14,7 @@ public abstract class Expression {
     static public Expression parse(String str) {
 
 
+
         //If the string start with operators like "+", "-" or "." we add a "0" before it
         if (str.charAt(0) == '+' || str.charAt(0) == '-' || str.charAt(0) == '×' || str.charAt(0) == '/' || str.charAt(0) == '.') {
             str = "0" + str;
@@ -77,7 +78,9 @@ public abstract class Expression {
                         continue;
                     }
                     substr1 = str.substring(0, n - 1);
+
                     substr2 = str.substring(n);
+
                     if (haveOperator(substr2,'×') || haveOperator(substr2,'/')) {
                         continue;
                     }
