@@ -15,12 +15,12 @@ public abstract class Expression {
 
 
         //If the string start with operators like "+", "-" or "." we add a "0" before it
-        if (str.charAt(0) == '+' || str.charAt(0) == '-' || str.charAt(0) == '*' || str.charAt(0) == '/' || str.charAt(0) == '.') {
+        if (str.charAt(0) == '+' || str.charAt(0) == '-' || str.charAt(0) == '×' || str.charAt(0) == '/' || str.charAt(0) == '.') {
             str = "0" + str;
         }
 
         //If the whole string is in a pair of bracket, we delete the bracket.
-        if (!haveOperator(str,'+') && !haveOperator(str,'-') && !haveOperator(str,'*') && !haveOperator(str,'/')
+        if (!haveOperator(str,'+') && !haveOperator(str,'-') && !haveOperator(str,'×') && !haveOperator(str,'/')
                 && str.charAt(0) == '(' && str.charAt(str.length()-1) == ')') {
             str = str.substring(1,str.length()-1);
         }
@@ -56,19 +56,19 @@ public abstract class Expression {
         }
 
 
-        if (haveOperator(str,'*') || haveOperator(str,'/')) {
+        if (haveOperator(str,'×') || haveOperator(str,'/')) {
             int n = 0;
             String substr1 = "";
             String substr2 = "";
             for (char c : str.toCharArray()) {
                 n++;
-                if (c == '*') {
+                if (c == '×') {
                     if (inBracket(n, str)) {
                         continue;
                     }
                     substr1 = str.substring(0, n - 1);
                     substr2 = str.substring(n);
-                    if (haveOperator(substr2,'*') || haveOperator(substr2,'/')) {
+                    if (haveOperator(substr2,'×') || haveOperator(substr2,'/')) {
                         continue;
                     }
                     return new Multiplication(parse(substr1), parse(substr2));
@@ -78,7 +78,7 @@ public abstract class Expression {
                     }
                     substr1 = str.substring(0, n - 1);
                     substr2 = str.substring(n);
-                    if (haveOperator(substr2,'*') || haveOperator(substr2,'/')) {
+                    if (haveOperator(substr2,'×') || haveOperator(substr2,'/')) {
                         continue;
                     }
                     return new Division(parse(substr1), parse(substr2));

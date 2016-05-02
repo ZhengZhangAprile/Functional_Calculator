@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case 7:
                         nstr = textView.getText().toString();
-                        nstr += "*";
+                        nstr += "×";
                         textView.setText(nstr);
                         break;
                     case 8:
@@ -162,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
                         refresh = true;
                         break;
                 }
-                System.out.println(textView.getText().length());
+
                 if (textView.getText().length() > 8 && textView.getText().length() < 12)
                     textView.setTextSize(64);
                 else if (textView.getText().length() > 11 && textView.getText().length() < 15)
