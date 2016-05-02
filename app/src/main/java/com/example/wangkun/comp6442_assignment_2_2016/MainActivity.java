@@ -1,13 +1,19 @@
 package com.example.wangkun.comp6442_assignment_2_2016;
 
+import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
 
@@ -28,17 +34,9 @@ public class MainActivity extends AppCompatActivity {
         gridView = (GridView) findViewById(R.id.gridView);
         registerForContextMenu(gridView);
 
-        String[] values = {"<-", "+/-", "C", "/", "7", "8", "9", "x", "4", "5", "6", "-", "1", "2", "3", "+", "", "0", ".", "="};
-
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, android.R.id.text1, values);
-
-        gridView.setAdapter(adapter);
-        System.out.println(gridView.getAdapter());
+        gridView.setAdapter(new GridViewAdapter(this));
 
         textView = (TextView) findViewById(R.id.textView);
-
         refresh = true;
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -49,11 +47,13 @@ public class MainActivity extends AppCompatActivity {
                     refresh = false;
                 }
                 String nstr;
+
                 switch (position) {
                     case 0:
                         int n = textView.getText().toString().length();
-                        nstr = textView.getText().toString().substring(0, n - 1);
+                        nstr = textView.getText().toString().substring(0, n - 1);//bug length = 0, nothing to enter
                         textView.setText(nstr);
+                        System.out.println("press:"+0);
                         break;
                     case 1:
                         ;
@@ -157,7 +157,47 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
 
+
+    private class GridViewAdapter extends BaseAdapter {
+
+        private Context context;
+        String[] values = {"<-", "+/-", "C", "/", "7", "8", "9", "x", "4", "5", "6", "-", "1", "2", "3", "+","", "0", ".", "="};
+        int count = 20;
+
+        public GridViewAdapter(Context context) {
+            this.context = context;
+        }
+
+
+        @Override
+        public int getCount() {
+            return count;
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return position;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            TextView result = new TextView(context);
+
+            result.setText(values[position]);
+            result.setTextColor(Color.BLACK);
+            result.setTextSize(66);
+            result.setLayoutParams(new AbsListView.LayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)));
+            result.setGravity(Gravity.CENTER);
+            result.setBackgroundColor(Color.LTGRAY); //设置背景颜色
+            return result;
+        }
 
     }
 
