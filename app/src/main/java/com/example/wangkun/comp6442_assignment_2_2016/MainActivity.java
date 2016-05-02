@@ -52,16 +52,23 @@ public class MainActivity extends AppCompatActivity {
                 switch (position) {
                     case 0:
                         int n = textView.getText().toString().length();
-                        nstr = textView.getText().toString().substring(0, n - 1);//bug length = 0, nothing to enter
-                        textView.setText(nstr);
-                        System.out.println("press:"+0);
+                        if (n <= 1) {
+                            textView.setText("0");
+                            refresh = true;
+                        } else {
+                            nstr = textView.getText().toString().substring(0, n - 1);
+                            textView.setText(nstr);
+                        }
                         break;
                     case 1:
-                        ;
+                        nstr = textView.getText().toString();
+                        nstr += "(";
+                        textView.setText(nstr);
                         break;
                     case 2:
-                        textView.setText("0");
-                        refresh = true;
+                        nstr = textView.getText().toString();
+                        nstr += ")";
+                        textView.setText(nstr);
                         break;
                     case 3:
                         nstr = textView.getText().toString();
@@ -129,7 +136,8 @@ public class MainActivity extends AppCompatActivity {
                         textView.setText(nstr);
                         break;
                     case 16:
-                        ;
+                        textView.setText("0");
+                        refresh = true;
                         break;
                     case 17:
                         nstr = textView.getText().toString();
@@ -142,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
                         textView.setText(nstr);
                         break;
                     case 19:
-                        if (textView.getText().toString().equals("")){
+                        if (textView.getText().toString().equals("")) {
                             textView.setText("0");
                             refresh = true;
                             break;
@@ -155,11 +163,11 @@ public class MainActivity extends AppCompatActivity {
                         break;
                 }
                 System.out.println(textView.getText().length());
-                if(textView.getText().length()>8&&textView.getText().length()<12)
+                if (textView.getText().length() > 8 && textView.getText().length() < 12)
                     textView.setTextSize(64);
-                else if(textView.getText().length()>11&&textView.getText().length()<15)
+                else if (textView.getText().length() > 11 && textView.getText().length() < 15)
                     textView.setTextSize(48);
-                else if(textView.getText().length()>14)
+                else if (textView.getText().length() > 14)
                     textView.setTextSize(36);
             }
         });
@@ -169,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
     private class GridViewAdapter extends BaseAdapter {
 
         private Context context;
-        String[] values = {"<-", "+/-", "C", "/", "7", "8", "9", "x", "4", "5", "6", "-", "1", "2", "3", "+","", "0", ".", "="};
+        String[] values = {"<-", "(", ")", "/", "7", "8", "9", "x", "4", "5", "6", "-", "1", "2", "3", "+", "C", "0", ".", "="};
         int count = 20;
 
         public GridViewAdapter(Context context) {
