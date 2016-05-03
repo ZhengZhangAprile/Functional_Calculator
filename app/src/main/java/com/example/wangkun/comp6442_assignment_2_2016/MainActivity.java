@@ -156,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
                             break;
                         }
 
-                        char[] operators = {'+','-','×','/','.'};
+                        char[] operators = {'+', '-', '×', '/', '.'};
 //                        char[] brackets = {'(',')'};
                         nstr = textView.getText().toString();
 
@@ -174,32 +174,33 @@ public class MainActivity extends AppCompatActivity {
                         else {
                             char c = nstr.charAt(nstr.length() - 1);
                             System.out.println(c);
-                            int flag=0;// when flag=0 represents the statement is wrong. flag=1 true.
-                           for(int i=0;i<operators.length;i++) {
-                               System.out.println(c == operators[i]);
-                               if (c == operators[i]) {
-                                   flag = 1;
-                                   textView.setText("error");
-                               }//last element can't be an operator.
+                            int flag = 0;// when flag=0 represents the statement is wrong. flag=1 true.
+                            for (int i = 0; i < operators.length; i++) {
+                                System.out.println(c == operators[i]);
+                                if (c == operators[i]) {
+                                    flag = 1;
+                                    textView.setText("error");
+                                }//last element can't be an operator.
 
                             }
-                            A:if(flag==0){//deal with two operators near by each other, include '(' with '+','-','*','/',
-                                    //and '+','-','*','/' with ')'
-                                    for(int k=0;k<nstr.length();k++){
-                                        for(int j=0;j<operators.length;j++){
-                                            if(nstr.charAt(k)==operators[j]||nstr.charAt(k)=='(')
-                                                for(int l=0;l<operators.length;l++){
-                                                    if(nstr.charAt(k+1)==operators[l]||nstr.charAt(k+1)==')'){
-                                                        textView.setText("error");
-                                                        break A;
-                                                    }
+                            A:
+                            if (flag == 0) {//deal with two operators near by each other, include '(' with '+','-','*','/',
+                                //and '+','-','*','/' with ')'
+                                for (int k = 0; k < nstr.length(); k++) {
+                                    for (int j = 0; j < operators.length; j++) {
+                                        if (nstr.charAt(k) == operators[j] || nstr.charAt(k) == '(')
+                                            for (int l = 0; l < operators.length; l++) {
+                                                if (nstr.charAt(k + 1) == operators[l] || nstr.charAt(k + 1) == ')') {
+                                                    textView.setText("error");
+                                                    break A;
                                                 }
-                                        }
+                                            }
                                     }
-                                    //no error, can evaluate the expression
-                                    Expression expression = Expression.parse(nstr);
-                                    nstr = expression.evaluate() + "";
-                                    textView.setText(nstr);
+                                }
+                                //no error, can evaluate the expression
+                                Expression expression = Expression.parse(nstr);
+                                nstr = expression.evaluate() + "";
+                                textView.setText(nstr);
                             }
                         }
 
