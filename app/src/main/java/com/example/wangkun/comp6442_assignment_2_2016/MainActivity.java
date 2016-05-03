@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
@@ -34,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         gridView = (GridView) findViewById(R.id.gridView);
         registerForContextMenu(gridView);
 
-        gridView.setAdapter(new GridViewAdapter(this));//set the gridview adapter.
+        gridView.setAdapter(new GridViewAdapter(this));//set the gridView adapter.
 
         textView = (TextView) findViewById(R.id.textView);
 
@@ -183,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    //conduct a GridView adapter to modify the gridview. Adding
+    //conduct a GridView adapter to modify the gridView. Adding
     //textView to show the calculator keywords and lines between them.
     private class GridViewAdapter extends BaseAdapter {
 
@@ -259,37 +258,35 @@ public class MainActivity extends AppCompatActivity {
         //the number of front and back brackets is same
         int front = 0, back = 0;
         for (char c : nstr.toCharArray()) {
-            if (c == '(')
+            if (c == '(') {
                 front++;
-            if (c == ')')
+            }
+            if (c == ')') {
                 back++;
+            }
         }
-        if (front != back)
+        if (front != back) {
             return "bracket missing";
-        else {
+        } else {
             char c = nstr.charAt(nstr.length() - 1);
-            int flag = 0;// when flag=0 represents the statement is wrong. flag=1 true.
             for (int i = 0; i < operators.length; i++) {
                 System.out.println(c == operators[i]);
                 if (c == operators[i]) {
-                    flag = 1;
                     return "parameter missing";
                 }//last element can't be an operator.
             }
-            if (flag == 0) {//deal with two operators near by each other, include '(' with '+','-','*','/',
-                //and '+','-','*','/' with ')'
-                for (int k = 0; k < nstr.length(); k++) {
-                    for (int j = 0; j < operators.length; j++) {
-                        if (nstr.charAt(k) == operators[j] || nstr.charAt(k) == '(')
-                            for (int l = 0; l < operators.length; l++) {
-                                if (nstr.charAt(k + 1) == operators[l] || nstr.charAt(k + 1) == ')') {
-                                    return "two operators near by";
 
-                                }
+            for (int k = 0; k < nstr.length(); k++) {
+                for (int j = 0; j < operators.length; j++) {
+                    if (nstr.charAt(k) == operators[j] || nstr.charAt(k) == '(') {
+                        for (int l = 0; l < operators.length; l++) {
+                            if (nstr.charAt(k + 1) == operators[l] || nstr.charAt(k + 1) == ')') {
+                                return "two operators near by";
+
                             }
+                        }
                     }
                 }
-
             }
         }
         return nstr;
