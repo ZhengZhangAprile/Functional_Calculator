@@ -157,59 +157,23 @@ public class MainActivity extends AppCompatActivity {
                         }
 
                         char[] operators = {'+','-','×','/','.'};
-//                        char[] brackets = {'(',')'};
                         nstr = textView.getText().toString();
 
-                        //judge if this expression is legal for parse.
-                        //the number of front and back brackets is same
-                        int front = 0, back = 0;
-                        for (char c : nstr.toCharArray()) {
-                            if (c == '(')
-                                front++;
-                            if (c == ')')
-                                back++;
+                        String str = hasException(nstr);
+                        if(str.equals(nstr)){//no error, can evaluate the expression
+                            Expression expression = Expression.parse(nstr);
+                            nstr = expression.evaluate() + "";
+                            textView.setText(nstr);
+                        }else{//if there are some errors, print out the error type.
+                            textView.setText(str);
                         }
-                        if (front != back)
-                            textView.setText("error");
-                        else {
-                            char c = nstr.charAt(nstr.length() - 1);
-                            System.out.println(c);
-                            int flag=0;// when flag=0 represents the statement is wrong. flag=1 true.
-                           for(int i=0;i<operators.length;i++) {
-                               System.out.println(c == operators[i]);
-                               if (c == operators[i]) {
-                                   flag = 1;
-                                   textView.setText("error");
-                               }//last element can't be an operator.
-
-                            }
-                            A:if(flag==0){//deal with two operators near by each other, include '(' with '+','-','*','/',
-                                    //and '+','-','*','/' with ')'
-                                    for(int k=0;k<nstr.length();k++){
-                                        for(int j=0;j<operators.length;j++){
-                                            if(nstr.charAt(k)==operators[j]||nstr.charAt(k)=='(')
-                                                for(int l=0;l<operators.length;l++){
-                                                    if(nstr.charAt(k+1)==operators[l]||nstr.charAt(k+1)==')'){
-                                                        textView.setText("error");
-                                                        break A;
-                                                    }
-                                                }
-                                        }
-                                    }
-                                    //no error, can evaluate the expression
-                                    Expression expression = Expression.parse(nstr);
-                                    nstr = expression.evaluate() + "";
-                                    textView.setText(nstr);
-                            }
-                        }
-
                         refresh = true;
                         break;
-
                 }
 
-
                 // Minimise the text size when the digits of input number increasing.
+                if(textView.getText().length()<9)
+                    textView.setTextSize(72);
                 if (textView.getText().length() > 8 && textView.getText().length() < 12)
                     textView.setTextSize(64);
                 else if (textView.getText().length() > 11 && textView.getText().length() < 15)
@@ -287,5 +251,49 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
+    //judge if this expression is legal for parse.when the str is legal return it back, else return
+    //different string to show different problem
+    public String hasException(String nstr){
+        char[] operators = {'+','-','×','/','.'};
+
+        //the number of front and back brackets is same
+        int front = 0, back = 0;
+        for (char c : nstr.toCharArray()) {
+            if (c == '(')
+                front++;
+            if (c == ')')
+                back++;
+        }
+        if (front != back)
+            return "bracket missing";
+        else {
+            char c = nstr.charAt(nstr.length() - 1);
+            int flag=0;// when flag=0 represents the statement is wrong. flag=1 true.
+            for(int i=0;i<operators.length;i++) {
+                System.out.println(c == operators[i]);
+                if (c == operators[i]) {
+                    flag = 1;
+                    return "parameter missing";
+                }//last element can't be an operator.
+            }
+            if(flag==0){//deal with two operators near by each other, include '(' with '+','-','*','/',
+                //and '+','-','*','/' with ')'
+                for(int k=0;k<nstr.length();k++){
+                    for(int j=0;j<operators.length;j++){
+                        if(nstr.charAt(k)==operators[j]||nstr.charAt(k)=='(')
+                            for(int l=0;l<operators.length;l++){
+                                if(nstr.charAt(k+1)==operators[l]||nstr.charAt(k+1)==')'){
+                                    return "two operators near by";
+
+                                }
+                            }
+                    }
+                }
+
+            }
+        }
+        return nstr;
+    }
 
 }
