@@ -1,5 +1,7 @@
 package com.example.wangkun.comp6442_assignment_2_2016;
 
+import java.math.BigDecimal;
+
 /**
  * Created by wangkun on 1/05/16.
  */
@@ -9,13 +11,13 @@ public abstract class Expression {
     public abstract String show();
 
     /* This method evaluates the expression */
-    public abstract float evaluate();
+    public abstract BigDecimal evaluate();
 
-    static public Expression parse(String str) {
+    public static Expression parse(String str) {
 
 
         //If the string start with operators like "+", "-" or "." we add a "0" before it
-        if (str.charAt(0) == '+' || str.charAt(0) == '-' || str.charAt(0) == '×' || str.charAt(0) == '/' || str.charAt(0) == '.') {
+        if (str.charAt(0) == '+' || str.charAt(0) == '-' || str.charAt(0) == '.') {
             str = "0" + str;
         }
 
@@ -88,9 +90,10 @@ public abstract class Expression {
             }
         }
 
-
         System.out.println("the str is " + str);
-        return new Number(Double.parseDouble(str));
+        //consider the accuracy of double, choose the BigDecimal class to parse the string
+        BigDecimal b = new BigDecimal(str);
+        return new Number(b);
     }
 
     //check if a operator is in a pair of bracket; the first position is 1.

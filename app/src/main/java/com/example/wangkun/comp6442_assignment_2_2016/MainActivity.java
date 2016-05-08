@@ -160,7 +160,8 @@ public class MainActivity extends AppCompatActivity {
                         String str = hasException(nstr);
                         if (str.equals(nstr)) {//no error, can evaluate the expression
                             Expression expression = Expression.parse(nstr);
-                            nstr = expression.evaluate() + "";
+                            nstr = expression.evaluate().toString();
+                            System.out.println(nstr);
                             textView.setText(nstr);
                         } else {//if there are some errors, print out the error type.
                             textView.setText(str);
@@ -255,6 +256,9 @@ public class MainActivity extends AppCompatActivity {
     public String hasException(String nstr) {
         char[] operators = {'+', '-', '×', '/', '.'};
 
+        //the string starts with operators "×" and "/" are not allowed
+        if(nstr.charAt(0)=='×'||nstr.charAt(0)=='/')
+            return "parameter missing";
         //the number of front and back brackets is same
         int front = 0, back = 0;
         for (char c : nstr.toCharArray()) {
@@ -270,7 +274,6 @@ public class MainActivity extends AppCompatActivity {
         } else {
             char c = nstr.charAt(nstr.length() - 1);
             for (int i = 0; i < operators.length; i++) {
-                System.out.println(c == operators[i]);
                 if (c == operators[i]) {
                     return "parameter missing";
                 }//last element can't be an operator.

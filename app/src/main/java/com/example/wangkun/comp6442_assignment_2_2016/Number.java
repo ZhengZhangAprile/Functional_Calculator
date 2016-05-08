@@ -1,15 +1,19 @@
 package com.example.wangkun.comp6442_assignment_2_2016;
 
+import java.math.BigDecimal;
+
 /**
  * Created by wangkun on 1/05/16.
  */
 public class Number extends Expression {
 
-    private float x;
+    private BigDecimal x;
+    double value;
 
-    public Number(double x) {
+    public Number(BigDecimal x) {
         super();
-        this.x = (float) x;
+        this.x =  x;
+        this.value = x.doubleValue();
     }
 
     @Override
@@ -18,7 +22,7 @@ public class Number extends Expression {
     }
 
     @Override
-    public float evaluate() {
+    public BigDecimal evaluate() {
         return x;
     }
 }

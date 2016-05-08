@@ -1,5 +1,7 @@
 package com.example.wangkun.comp6442_assignment_2_2016;
 
+import java.math.BigDecimal;
+
 /**
  * Created by wangkun on 1/05/16.
  */
@@ -19,7 +21,7 @@ public class Addition extends Expression {
     }
 
     @Override
-    public float evaluate() {
-        return exp1.evaluate() + exp2.evaluate();
+    public BigDecimal evaluate() {
+        return exp1.evaluate().add(exp2.evaluate()) ;
     }
 }
