@@ -6,13 +6,6 @@ import java.math.BigDecimal;
  * Created by wangkun on 1/05/16.
  */
 public abstract class Expression {
-    /*  This method prints an expression as a string
-       (which could be parsed back into a expression) */
-    public abstract String show();
-
-    /* This method evaluates the expression */
-    public abstract BigDecimal evaluate();
-
     public static Expression parse(String str) {
 
 
@@ -28,6 +21,10 @@ public abstract class Expression {
         }
 
         if (haveOperator(str, '+') || haveOperator(str, '-')) {
+            //if there is a negative or positive operator in a bracket, here need add a zero before the operator
+            if (str.charAt(0) == '+' || str.charAt(0) == '-')
+                str = "0" + str;
+
             int n = 0;
             String substr1 = "";
             String substr2 = "";
@@ -122,5 +119,12 @@ public abstract class Expression {
         }
         return false;
     }
+
+    /*  This method prints an expression as a string
+       (which could be parsed back into a expression) */
+    public abstract String show();
+
+    /* This method evaluates the expression */
+    public abstract BigDecimal evaluate();
 
 }

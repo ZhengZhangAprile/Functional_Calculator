@@ -219,7 +219,7 @@ public class MainActivity extends AppCompatActivity {
 
             result.setText(values[position]);
             result.setTextColor(Color.BLACK);
-            result.setTextSize(66);
+            result.setTextSize(48);
             result.setLayoutParams(new AbsListView.LayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)));
             result.setGravity(Gravity.CENTER);
             result.setBackgroundColor(Color.LTGRAY); //set items' background color.
@@ -284,7 +284,10 @@ public class MainActivity extends AppCompatActivity {
                     if (nstr.charAt(k) == operators[j] || nstr.charAt(k) == '(') {
                         for (int l = 0; l < operators.length; l++) {
                             if (nstr.charAt(k + 1) == operators[l] || nstr.charAt(k + 1) == ')') {
-                                return "two operators near by";
+                                if(nstr.charAt(k) == '('&& nstr.charAt(k + 1) =='-'||nstr.charAt(k) == '('&& nstr.charAt(k + 1) =='+')
+                                    return nstr;
+                                else
+                                    return "two operators near by";
 
                             }
                         }
