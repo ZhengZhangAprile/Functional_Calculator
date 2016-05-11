@@ -3,9 +3,8 @@ package com.example.wangkun.comp6442_assignment_2_2016;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,7 +16,7 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class ScientificActivity extends AppCompatActivity {
 
     private GridView gridView;
     private TextView textView;
@@ -26,30 +25,28 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setContentView(R.layout.activity_scientific);
 
-
-        gridView = (GridView) findViewById(R.id.gridView);
+        gridView = (GridView) findViewById(R.id.gridView1);
         registerForContextMenu(gridView);
 
         gridView.setAdapter(new GridViewAdapter(this));//set the gridView adapter.
 
-        textView = (TextView) findViewById(R.id.textView);
+        textView = (TextView) findViewById(R.id.textView1);
 
         refresh = true;
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
                 if (refresh) {
                     textView.setText("");
                     refresh = false;
                 }
                 String nstr;
-
-                switch (position) {
+                // TODO: 11/05/16 finish switch statement 
+                /*switch (position) {
                     case 0:
                         int n = textView.getText().toString().length();
                         if (n <= 1) {
@@ -169,8 +166,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         refresh = true;
                         break;
-                }
-
+                }*/
                 // Minimise the text size when the digits of input number increasing.
                 if (textView.getText().length() < 9) {
                     textView.setTextSize(72);
@@ -185,13 +181,39 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    //conduct a GridView adapter to modify the gridView. Adding
-    //textView to show the calculator keywords and lines between them.
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.scientific) {
+
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+//    public void launchMainActivity(View view) {
+//        Intent launchMainActivityIntent = new Intent(this, MainActivity.class);
+//        startActivity(launchMainActivityIntent);
+//    }
+
     private class GridViewAdapter extends BaseAdapter {
 
         private Context context;
-        String[] values = {"<-", "(", ")", "/", "7", "8", "9", "x", "4", "5", "6", "-", "1", "2", "3", "+", "C", "0", ".", "="};
-        int count = 20;
+        String[] values = { "<-", "(", ")", "Rand", "",  "", "", "", "sin", "cos", "tan", "cot", "e", "π", "ln", "log10", "Abs", "sqrt", "x^2", "/", "7", "8", "9", "x", "4", "5", "6", "-", "1", "2", "3", "+", "C", "0", ".", "="};
+        int count = 36;
 
         public GridViewAdapter(Context context) {
             this.context = context;
@@ -221,7 +243,7 @@ public class MainActivity extends AppCompatActivity {
 
             result.setText(values[position]);
             result.setTextColor(Color.BLACK);
-            result.setTextSize(48);
+            result.setTextSize(16);
             result.setLayoutParams(new AbsListView.LayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)));
             result.setGravity(Gravity.CENTER);
             result.setBackgroundColor(Color.LTGRAY); //set items' background color.
@@ -230,32 +252,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.scientific) {
-            launchScientificActivity(gridView);
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-
-    //judge if this expression is legal for parse.when the str is legal return it back, else return
-    //different string to show different problem
     public String hasException(String nstr) {
         char[] operators = {'+', '-', '×', '/', '.'};
 
@@ -299,11 +295,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         return nstr;
-    }
-
-    public void launchScientificActivity(View view) {
-        Intent launchScientificActivityIntent = new Intent(this, ScientificActivity.class);
-        startActivity(launchScientificActivityIntent);
     }
 
 }

@@ -2,8 +2,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.wangkun.comp6442_assignment_2_2016.MainActivity" >
-    <item android:id="@+id/action_settings"
-        android:title="@string/action_settings"
+
+
+    <item android:id="@+id/scientific"
+        android:icon="@drawable/ic_extension_white_24dp"
+        android:title="@string/scientific"
         android:orderInCategory="100"
-        app:showAsAction="never" />
+        app:showAsAction="ifRoom" />
+
 </menu>
