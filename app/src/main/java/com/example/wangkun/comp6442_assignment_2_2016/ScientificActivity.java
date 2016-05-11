@@ -45,7 +45,7 @@ public class ScientificActivity extends AppCompatActivity {
                     refresh = false;
                 }
                 String nstr;
-                // TODO: 11/05/16 finish switch statement 
+                // TODO: 11/05/16 finish switch statement
                 /*switch (position) {
                     case 0:
                         int n = textView.getText().toString().length();
@@ -212,8 +212,8 @@ public class ScientificActivity extends AppCompatActivity {
     private class GridViewAdapter extends BaseAdapter {
 
         private Context context;
-        String[] values = { "<-", "(", ")", "Rand", "",  "", "", "", "sin", "cos", "tan", "cot", "e", "π", "ln", "log10", "Abs", "sqrt", "x^2", "/", "7", "8", "9", "x", "4", "5", "6", "-", "1", "2", "3", "+", "C", "0", ".", "="};
-        int count = 36;
+        String[] values = { "<-", "(", ")", "Rand", "", "", "", "sin", "cos", "tan", "cot", "e", "π", "ln", "log10", "Abs", "sqrt", "x^2", "/", "7", "8", "9", "x", "4", "5", "6", "-", "1", "2", "3", "+", "C", "0", ".", "="};
+        int count = 35;
 
         public GridViewAdapter(Context context) {
             this.context = context;

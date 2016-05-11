@@ -19,7 +19,7 @@
         android:id="@+id/gridView1"
 
 
-        android:numColumns="4"
+        android:numColumns="7"
         android:verticalSpacing="2dp"
         android:horizontalSpacing="2dp"
         android:paddingLeft="2dp"
