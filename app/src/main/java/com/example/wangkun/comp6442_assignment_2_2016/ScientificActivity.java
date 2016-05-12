@@ -211,7 +211,12 @@ public class ScientificActivity extends AppCompatActivity {
     private class GridViewAdapter extends BaseAdapter {
 
         private Context context;
-        String[] values = {"<-", "(", ")", "Rand", "x^-1", "x^y", "", "sin", "cos", "tan", "cot", "e", "π", "ln", "log10", "Abs", "sqrt", "x^2", "/", "7", "8", "9", "x", "4", "5", "6", "-", "1", "2", "3", "+", "C", "0", ".", "="};
+        String[] values =
+                {"Rad/Deg", "y√x", "x^y", "<-", "(", ")", "/",
+                        "sin", "cos", "tan", "7", "8", "9", "x",
+                        "sinh", "cosh", "tanh", "4", "5", "6", "-",
+                        "abs", "log", "ln", "1", "2", "3", "+",
+                        "e", "π", "rand", "C", "0", ".", "="};
         int count = 35;
 
         public GridViewAdapter(Context context) {
