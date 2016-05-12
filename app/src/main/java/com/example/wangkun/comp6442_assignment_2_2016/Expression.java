@@ -1,6 +1,7 @@
 package com.example.wangkun.comp6442_assignment_2_2016;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 
 /**
  * Created by wangkun on 1/05/16.
@@ -8,6 +9,13 @@ import java.math.BigDecimal;
 public abstract class Expression {
     public static Expression parse(String str) {
 
+        if (str.equals("π")) {
+            return new Number(new BigDecimal(Math.PI));
+        }
+
+        if (str.equals("e")) {
+            return new Number(new BigDecimal(Math.E));
+        }
 
         //If the string start with operators like "+", "-" or "." we add a "0" before it
         if (str.charAt(0) == '+' || str.charAt(0) == '-' || str.charAt(0) == '.') {
@@ -15,7 +23,7 @@ public abstract class Expression {
         }
 
         //If the whole string is in a pair of bracket, we delete the bracket.
-        if (!haveOperator(str, '+') && !haveOperator(str, '-') && !haveOperator(str, '×') && !haveOperator(str, '/')
+        if (!haveOperator(str, '+') && !haveOperator(str, '-') && !haveOperator(str, '×') && !haveOperator(str, '/') && !haveOperator(str, '^')
                 && str.charAt(0) == '(' && str.charAt(str.length() - 1) == ')') {
             str = str.substring(1, str.length() - 1);
         }
@@ -87,10 +95,67 @@ public abstract class Expression {
             }
         }
 
-        System.out.println("the str is " + str);
+        if (haveOperator(str, '^')) {
+            int n = 0;
+            String substr1 = "";
+            String substr2 = "";
+            for (char c : str.toCharArray()) {
+                n++;
+                if (c == '^') {
+                    if (inBrackets(n, str)) {
+                        continue;
+                    }
+                    substr1 = str.substring(0, n - 1);
+                    substr2 = str.substring(n);
+                    if (haveOperator(substr2, '^')) {
+                        continue;
+                    }
+                    return new Power(parse(substr1), parse(substr2));
+                }
+            }
+        }
+
+        if (haveScientificOperator(str)) {
+            String ScientificOperator = str.substring(0, 3);
+            String substr = str.substring(3);
+            switch (ScientificOperator) {
+                case "sin":
+                    return new Sin(parse(substr));
+                case "cos":
+                    return new Cos(parse(substr));
+                case "tan":
+                    return new Tan(parse(substr));
+
+            }
+        }
+
+
+        //System.out.println("the str is " + str);
         //consider the accuracy of double, choose the BigDecimal class to parse the string
         BigDecimal b = new BigDecimal(str);
         return new Number(b);
+    }
+
+    public static boolean haveScientificOperator(String str) {
+
+        if (str.length() < 4) {
+            return false;
+        }
+        String ScientificOperator = str.substring(0, 3);
+        //{"sin", "cos", "tan", "cot", "abs", "log", "ln ", "rdm"}
+        ArrayList<String> ScientificOperators = new ArrayList<>();
+        ScientificOperators.add("sin");
+        ScientificOperators.add("cos");
+        ScientificOperators.add("tan");
+        //ScientificOperators.add("sih");
+        //ScientificOperators.add("csh");
+        //ScientificOperators.add("tah");
+        ScientificOperators.add("abs");
+        ScientificOperators.add("log");
+        ScientificOperators.add("ln ");
+        ScientificOperators.add("rdm");
+
+        return ScientificOperators.contains(ScientificOperator);
     }
 
     //check if a operator is in a pair of bracket; the first position is 1.

@@ -1,10 +1,9 @@
 package com.example.wangkun.comp6442_assignment_2_2016;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -212,7 +211,7 @@ public class ScientificActivity extends AppCompatActivity {
     private class GridViewAdapter extends BaseAdapter {
 
         private Context context;
-        String[] values = { "<-", "(", ")", "Rand", "", "", "", "sin", "cos", "tan", "cot", "e", "π", "ln", "log10", "Abs", "sqrt", "x^2", "/", "7", "8", "9", "x", "4", "5", "6", "-", "1", "2", "3", "+", "C", "0", ".", "="};
+        String[] values = {"<-", "(", ")", "Rand", "x^-1", "x^y", "", "sin", "cos", "tan", "cot", "e", "π", "ln", "log10", "Abs", "sqrt", "x^2", "/", "7", "8", "9", "x", "4", "5", "6", "-", "1", "2", "3", "+", "C", "0", ".", "="};
         int count = 35;
 
         public GridViewAdapter(Context context) {
