@@ -125,6 +125,8 @@ public abstract class Expression {
                     return new Cos(parse(substr));
                 case "tan":
                     return new Tan(parse(substr));
+                case "abs":
+                    return new Abs(parse(substr));
 
             }
         }

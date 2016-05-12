@@ -24,6 +24,9 @@ public class ScientificUnitTest {
         Expression exp2 = Expression.parse("e+π");
         System.out.println(exp2.show());
         System.out.println(exp2.evaluate());
+        Expression exp3 = Expression.parse("abs(1-2)");
+        System.out.println(exp3.show());
+        System.out.println(exp3.evaluate());
 
     }
 
@@ -37,6 +40,13 @@ public class ScientificUnitTest {
         assertEquals(cos.show(), "(cos(1.5707963267948965579989817342720925807952880859375))");
         assertEquals(cos.evaluate(), BigDecimal.valueOf(6.123233995736766E-17));
 
+    }
+
+    @Test
+    public void AbsUnitTest() {
+        Abs abs = new Abs(Expression.parse("1-2"));
+        System.out.println(abs.show());
+        System.out.println(abs.evaluate());
     }
 
     @Test
