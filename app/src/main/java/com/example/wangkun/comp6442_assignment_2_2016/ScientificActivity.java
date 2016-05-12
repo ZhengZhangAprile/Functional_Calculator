@@ -45,8 +45,13 @@ public class ScientificActivity extends AppCompatActivity {
                 }
                 String nstr;
                 // TODO: 11/05/16 finish switch statement
-                /*switch (position) {
-                    case 0:
+                switch (position) {
+                    case 2:
+                        nstr = textView.getText().toString();
+                        nstr += "^";
+                        textView.setText(nstr);
+                        break;
+                    case 3:
                         int n = textView.getText().toString().length();
                         if (n <= 1) {
                             textView.setText("0");
@@ -56,96 +61,156 @@ public class ScientificActivity extends AppCompatActivity {
                             textView.setText(nstr);
                         }
                         break;
-                    case 1:
+                    case 4:
                         nstr = textView.getText().toString();
                         nstr += "(";
                         textView.setText(nstr);
                         break;
-                    case 2:
+                    case 5:
                         nstr = textView.getText().toString();
                         nstr += ")";
                         textView.setText(nstr);
                         break;
-                    case 3:
+                    case 6:
                         nstr = textView.getText().toString();
                         nstr += "/";
                         textView.setText(nstr);
                         break;
-                    case 4:
-                        nstr = textView.getText().toString();
-                        nstr += "7";
-                        textView.setText(nstr);
-                        break;
-                    case 5:
-                        nstr = textView.getText().toString();
-                        nstr += "8";
-                        textView.setText(nstr);
-                        break;
-                    case 6:
-                        nstr = textView.getText().toString();
-                        nstr += "9";
-                        textView.setText(nstr);
-                        break;
                     case 7:
                         nstr = textView.getText().toString();
-                        nstr += "×";
+                        nstr += "sin(";
                         textView.setText(nstr);
                         break;
                     case 8:
                         nstr = textView.getText().toString();
-                        nstr += "4";
+                        nstr += "cos(";
                         textView.setText(nstr);
                         break;
                     case 9:
                         nstr = textView.getText().toString();
-                        nstr += "5";
+                        nstr += "tan(";
                         textView.setText(nstr);
                         break;
                     case 10:
                         nstr = textView.getText().toString();
-                        nstr += "6";
+                        nstr += "7";
                         textView.setText(nstr);
                         break;
                     case 11:
                         nstr = textView.getText().toString();
-                        nstr += "-";
+                        nstr += "8";
                         textView.setText(nstr);
                         break;
                     case 12:
                         nstr = textView.getText().toString();
-                        nstr += "1";
+                        nstr += "9";
                         textView.setText(nstr);
                         break;
                     case 13:
                         nstr = textView.getText().toString();
-                        nstr += "2";
+                        nstr += "×";
                         textView.setText(nstr);
                         break;
                     case 14:
                         nstr = textView.getText().toString();
-                        nstr += "3";
+                        nstr += "sinh(";
                         textView.setText(nstr);
                         break;
                     case 15:
                         nstr = textView.getText().toString();
-                        nstr += "+";
+                        nstr += "cosh(";
                         textView.setText(nstr);
                         break;
                     case 16:
-                        textView.setText("0");
-                        refresh = true;
+                        nstr = textView.getText().toString();
+                        nstr += "tanh(";
+                        textView.setText(nstr);
                         break;
                     case 17:
                         nstr = textView.getText().toString();
-                        nstr += "0";
+                        nstr += "4";
                         textView.setText(nstr);
                         break;
                     case 18:
                         nstr = textView.getText().toString();
-                        nstr += ".";
+                        nstr += "5";
                         textView.setText(nstr);
                         break;
                     case 19:
+                        nstr = textView.getText().toString();
+                        nstr += "6";
+                        textView.setText(nstr);
+                        break;
+                    case 20:
+                        nstr = textView.getText().toString();
+                        nstr += "-";
+                        textView.setText(nstr);
+                        break;
+                    case 21:
+                        nstr = textView.getText().toString();
+                        nstr += "abs(";
+                        textView.setText(nstr);
+                        break;
+                    case 22:
+                        nstr = textView.getText().toString();
+                        nstr += "log(";
+                        textView.setText(nstr);
+                        break;
+                    case 23:
+                        nstr = textView.getText().toString();
+                        nstr += "ln(";
+                        textView.setText(nstr);
+                        break;
+                    case 24:
+                        nstr = textView.getText().toString();
+                        nstr += "1";
+                        textView.setText(nstr);
+                        break;
+                    case 25:
+                        nstr = textView.getText().toString();
+                        nstr += "2";
+                        textView.setText(nstr);
+                        break;
+                    case 26:
+                        nstr = textView.getText().toString();
+                        nstr += "3";
+                        textView.setText(nstr);
+                        break;
+                    case 27:
+                        nstr = textView.getText().toString();
+                        nstr += "+";
+                        textView.setText(nstr);
+                        break;
+                    case 28:
+                        nstr = textView.getText().toString();
+                        nstr += "e";
+                        textView.setText(nstr);
+                        break;
+                    case 29:
+                        nstr = textView.getText().toString();
+                        nstr += "π";
+                        textView.setText(nstr);
+                        break;
+                    case 30:
+                        nstr = textView.getText().toString();
+                        nstr += "rand";
+                        textView.setText(nstr);
+                        break;
+                    case 31:
+                        textView.setText("0");
+                        refresh = true;
+                        break;
+                    case 32:
+                        nstr = textView.getText().toString();
+                        nstr += "0";
+                        textView.setText(nstr);
+                        break;
+                    case 33:
+                        nstr = textView.getText().toString();
+                        nstr += ".";
+                        textView.setText(nstr);
+                        break;
+                    case 34:
                         if (textView.getText().toString().equals("")) {
                             textView.setText("0");
                             refresh = true;
@@ -165,7 +230,7 @@ public class ScientificActivity extends AppCompatActivity {
                         }
                         refresh = true;
                         break;
-                }*/
+                }
                 // Minimise the text size when the digits of input number increasing.
                 if (textView.getText().length() < 9) {
                     textView.setTextSize(72);
