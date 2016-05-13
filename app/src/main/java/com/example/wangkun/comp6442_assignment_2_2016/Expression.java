@@ -26,6 +26,7 @@ public abstract class Expression {
         if (!haveOperator(str, '+') && !haveOperator(str, '-') && !haveOperator(str, '×') && !haveOperator(str, '/') && !haveOperator(str, '^')
                 && str.charAt(0) == '(' && str.charAt(str.length() - 1) == ')') {
             str = str.substring(1, str.length() - 1);
+            return parse(str);
         }
 
         if (haveOperator(str, '+') || haveOperator(str, '-')) {

@@ -37,6 +37,9 @@ public class ScientificUnitTest {
         Expression exp6 = Expression.parse("ln(e^2)");
         System.out.println(exp6.show());
         System.out.println(exp6.evaluate());
+        Expression exp7 = Expression.parse("sin(π)");
+        System.out.println(exp7.show());
+        System.out.println(exp7.evaluate());
 
 
     }
