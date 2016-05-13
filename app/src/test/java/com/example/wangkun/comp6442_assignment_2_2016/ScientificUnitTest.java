@@ -3,6 +3,7 @@ package com.example.wangkun.comp6442_assignment_2_2016;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.util.Random;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -27,6 +28,16 @@ public class ScientificUnitTest {
         Expression exp3 = Expression.parse("abs(1-2)");
         System.out.println(exp3.show());
         System.out.println(exp3.evaluate());
+        Expression exp4 = Expression.parse("rand(3)");
+        System.out.println(exp4.show());
+        System.out.println(exp4.evaluate());
+        Expression exp5 = Expression.parse("log(100)");
+        System.out.println(exp5.show());
+        System.out.println(exp5.evaluate());
+        Expression exp6 = Expression.parse("ln(e^2)");
+        System.out.println(exp6.show());
+        System.out.println(exp6.evaluate());
+
 
     }
 
@@ -76,4 +87,16 @@ public class ScientificUnitTest {
         System.out.println(ScientificOperator);
         System.out.println(substr);
     }
+
+    @Test
+    public void Big() {
+        BigDecimal b = new BigDecimal("0.3333333333333333333").setScale(10, BigDecimal.ROUND_HALF_UP);
+        System.out.println(b);
+        b.setScale(5, BigDecimal.ROUND_HALF_UP);
+        System.out.println(b);
+        Random random = new Random();
+        random.nextInt();
+        System.out.println();
+    }
+
 }

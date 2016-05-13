@@ -46,6 +46,11 @@ public class ScientificActivity extends AppCompatActivity {
                 String nstr;
                 // TODO: 11/05/16 finish switch statement
                 switch (position) {
+                    case 1:
+                        nstr = textView.getText().toString();
+                        nstr += "√";
+                        textView.setText(nstr);
+                        break;
                     case 2:
                         nstr = textView.getText().toString();
                         nstr += "^";
