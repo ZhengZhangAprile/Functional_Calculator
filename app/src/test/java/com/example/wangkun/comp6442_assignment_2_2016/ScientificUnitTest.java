@@ -40,6 +40,9 @@ public class ScientificUnitTest {
         Expression exp7 = Expression.parse("sin(π)");
         System.out.println(exp7.show());
         System.out.println(exp7.evaluate());
+        Expression exp8 = Expression.parse("sqrt(4)");
+        System.out.println(exp8.show());
+        System.out.println(exp8.evaluate());
 
 
     }

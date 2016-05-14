@@ -130,6 +130,9 @@ public abstract class Expression {
                     return new Tanh(parse(substr));
                 case "rand":
                     return new Rand(parse(substr));
+                case "sqrt":
+                    return new Sqrt(parse(substr));
+
 
             }
 
@@ -184,6 +187,7 @@ public abstract class Expression {
         ScientificOperators.add("log");
         ScientificOperators.add("ln");
         ScientificOperators.add("rand");
+        ScientificOperators.add("sqrt");
 
         return ScientificOperators.contains(ScientificOperator2) || ScientificOperators.contains(ScientificOperator3) || ScientificOperators.contains(ScientificOperator4);
     }

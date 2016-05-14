@@ -48,7 +48,7 @@ public class ScientificActivity extends AppCompatActivity {
                 switch (position) {
                     case 1:
                         nstr = textView.getText().toString();
-                        nstr += "√";
+                        nstr += "sqrt(";
                         textView.setText(nstr);
                         break;
                     case 2:
