@@ -24,6 +24,7 @@ public class Rand extends Expression {
     public BigDecimal evaluate() {
         Random random = new Random();
         int n = exp.evaluate().intValue();
+        n *= 1000;
         int value = random.nextInt(n);
         double rtn = (double) value;
         rtn /= 1000;
