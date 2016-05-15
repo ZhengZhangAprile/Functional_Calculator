@@ -26,6 +26,7 @@ public abstract class Expression {
         if (!haveOperator(str, '+') && !haveOperator(str, '-') && !haveOperator(str, '×') && !haveOperator(str, '/') && !haveOperator(str, '^')
                 && str.charAt(0) == '(' && str.charAt(str.length() - 1) == ')') {
             str = str.substring(1, str.length() - 1);
+            return parse(str);
         }
 
         if (haveOperator(str, '+') || haveOperator(str, '-')) {
@@ -116,8 +117,27 @@ public abstract class Expression {
         }
 
         if (haveScientificOperator(str)) {
-            String ScientificOperator = str.substring(0, 3);
-            String substr = str.substring(3);
+
+            String ScientificOperator = str.substring(0, 4);
+            String substr = str.substring(4);
+
+            switch (ScientificOperator) {
+                case "sinh":
+                    return new Sinh(parse(substr));
+                case "cosh":
+                    return new Cosh(parse(substr));
+                case "tanh":
+                    return new Tanh(parse(substr));
+                case "rand":
+                    return new Rand(parse(substr));
+                case "sqrt":
+                    return new Sqrt(parse(substr));
+
+
+            }
+
+            ScientificOperator = str.substring(0, 3);
+            substr = str.substring(3);
             switch (ScientificOperator) {
                 case "sin":
                     return new Sin(parse(substr));
@@ -127,12 +147,21 @@ public abstract class Expression {
                     return new Tan(parse(substr));
                 case "abs":
                     return new Abs(parse(substr));
+                case "log":
+                    return new Log(parse(substr));
+
+            }
+            ScientificOperator = str.substring(0, 2);
+            substr = str.substring(2);
+            switch (ScientificOperator) {
+                case "ln":
+                    return new Ln(parse(substr));
 
             }
         }
 
 
-        //System.out.println("the str is " + str);
+        System.out.println("the str is " + str);
         //consider the accuracy of double, choose the BigDecimal class to parse the string
         BigDecimal b = new BigDecimal(str);
         return new Number(b);
@@ -140,24 +169,27 @@ public abstract class Expression {
 
     public static boolean haveScientificOperator(String str) {
 
-        if (str.length() < 4) {
+        if (str.length() < 5) {
             return false;
         }
-        String ScientificOperator = str.substring(0, 3);
+        String ScientificOperator2 = str.substring(0, 2);
+        String ScientificOperator3 = str.substring(0, 3);
+        String ScientificOperator4 = str.substring(0, 4);
         //{"sin", "cos", "tan", "cot", "abs", "log", "ln ", "rdm"}
         ArrayList<String> ScientificOperators = new ArrayList<>();
         ScientificOperators.add("sin");
         ScientificOperators.add("cos");
         ScientificOperators.add("tan");
-        //ScientificOperators.add("sih");
-        //ScientificOperators.add("csh");
-        //ScientificOperators.add("tah");
+        ScientificOperators.add("sinh");
+        ScientificOperators.add("cosh");
+        ScientificOperators.add("tanh");
         ScientificOperators.add("abs");
         ScientificOperators.add("log");
-        ScientificOperators.add("ln ");
-        ScientificOperators.add("rdm");
+        ScientificOperators.add("ln");
+        ScientificOperators.add("rand");
+        ScientificOperators.add("sqrt");
 
-        return ScientificOperators.contains(ScientificOperator);
+        return ScientificOperators.contains(ScientificOperator2) || ScientificOperators.contains(ScientificOperator3) || ScientificOperators.contains(ScientificOperator4);
     }
 
     //check if a operator is in a pair of bracket; the first position is 1.

@@ -46,6 +46,11 @@ public class ScientificActivity extends AppCompatActivity {
                 String nstr;
                 // TODO: 11/05/16 finish switch statement
                 switch (position) {
+                    case 1:
+                        nstr = textView.getText().toString();
+                        nstr += "sqrt(";
+                        textView.setText(nstr);
+                        break;
                     case 2:
                         nstr = textView.getText().toString();
                         nstr += "^";
@@ -193,7 +198,7 @@ public class ScientificActivity extends AppCompatActivity {
                         break;
                     case 30:
                         nstr = textView.getText().toString();
-                        nstr += "rand";
+                        nstr += "rand(";
                         textView.setText(nstr);
                         break;
                     case 31:
@@ -277,7 +282,7 @@ public class ScientificActivity extends AppCompatActivity {
 
         private Context context;
         String[] values =
-                {"Rad/Deg", "y√x", "x^y", "<-", "(", ")", "/",
+                {"Rad/Deg", "sqrt", "x^y", "<-", "(", ")", "/",
                         "sin", "cos", "tan", "7", "8", "9", "x",
                         "sinh", "cosh", "tanh", "4", "5", "6", "-",
                         "abs", "log", "ln", "1", "2", "3", "+",
