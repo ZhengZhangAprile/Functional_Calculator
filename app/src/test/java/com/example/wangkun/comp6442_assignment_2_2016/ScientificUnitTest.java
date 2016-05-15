@@ -9,24 +9,21 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Created by wangkun on 11/05/16.
+ * Created by Zheng Zhang on 15/05/16.
  */
 public class ScientificUnitTest {
 
     @Test
     public void ParseUnitTest() {
         Expression exp0 = Expression.parse("(4+3)^(2+1)");
-        System.out.println(exp0.show());
+        assertEquals(exp0.evaluate().intValue(),343);
         System.out.println(exp0.evaluate());
         Expression exp1 = Expression.parse("sin(π/2)");
-        System.out.println(exp1.show());
+        assertEquals(exp1.evaluate().intValue(),1);
         System.out.println(exp1.evaluate());
-        Expression exp2 = Expression.parse("e+π");
-        System.out.println(exp2.show());
+        Expression exp2 = Expression.parse("abs(1-2)");
+        assertEquals(exp2.evaluate().intValue(),1);
         System.out.println(exp2.evaluate());
-        Expression exp3 = Expression.parse("abs(1-2)");
-        System.out.println(exp3.show());
-        System.out.println(exp3.evaluate());
 
     }
 

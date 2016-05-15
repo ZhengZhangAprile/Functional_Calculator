@@ -21,6 +21,6 @@ public class Abs extends Expression {
 
     @Override
     public BigDecimal evaluate() {
-        return BigDecimal.valueOf(Math.abs(exp.evaluate().doubleValue()));
+        return exp.evaluate().abs();
     }
 }

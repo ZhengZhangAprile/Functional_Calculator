@@ -9,19 +9,14 @@ import static org.junit.Assert.assertEquals;
 
 
 /**
- * Created by aprile on 8/05/16.
+ * Created by Zheng Zhang on 8/05/16.
  */
 public class ExpressionTest {
-    Number a[] ={new Number(new BigDecimal("0.3")),new Number(new BigDecimal("0.5")),
-            new Number(new BigDecimal("0.7")),new Number(new BigDecimal("0.9"))};
     Number a1 = new Number(new BigDecimal("0.3"));
     Number a2 = new Number(new BigDecimal("0.5"));
     Number a3 = new Number(new BigDecimal("0.7"));
     Number a4 = new Number(new BigDecimal("0.9"));
 
-    Number b[] = {new Number(new BigDecimal("5")),new Number(new BigDecimal("6")),
-            new Number(new BigDecimal("7")),new Number(new BigDecimal("8")),new Number(new BigDecimal("9"))
-    };
     Number b1 = new Number(new BigDecimal("5"));
     Number b2 = new Number(new BigDecimal("6"));
     Number b3 = new Number(new BigDecimal("7"));
@@ -30,14 +25,6 @@ public class ExpressionTest {
 
     @Test
     public void mulTest(){
-//        for(int i=0;i<a.length;i++){
-//            for(int j=0;j<b.length;j++){
-//                Expression mul = new Multiplication(a[i],b[j]);
-//                BigDecimal result = mul.evaluate();
-//                System.out.println(a[i].value*b[j].value);
-//                assertEquals(result.doubleValue(),a[i].value*b[j].value,0);
-//            }
-//        }
         Expression mul1 = new Multiplication(a1,b1);
         BigDecimal result1 = mul1.evaluate();
         assertEquals(result1.doubleValue(),1.5,0);
@@ -57,14 +44,6 @@ public class ExpressionTest {
 
     @Test
     public void addTest(){
-//        for(int i=0;i<a.length;i++){
-//            for(int j=0;j<b.length;j++){
-//                Expression mul = new Multiplication(a[i],b[j]);
-//                BigDecimal result = mul.evaluate();
-//                System.out.println(a[i].value*b[j].value);
-//                assertEquals(result.doubleValue(),a[i].value*b[j].value,0);
-//            }
-//        }
         Expression mul1 = new Addition(a1,b1);
         BigDecimal result1 = mul1.evaluate();
         assertEquals(result1.doubleValue(),5.3,0);
@@ -84,14 +63,6 @@ public class ExpressionTest {
 
     @Test
     public void subTest(){
-//        for(int i=0;i<a.length;i++){
-//            for(int j=0;j<b.length;j++){
-//                Expression mul = new Multiplication(a[i],b[j]);
-//                BigDecimal result = mul.evaluate();
-//                System.out.println(a[i].value*b[j].value);
-//                assertEquals(result.doubleValue(),a[i].value*b[j].value,0);
-//            }
-//        }
         Expression mul1 = new Subtraction(a1,b1);
         BigDecimal result1 = mul1.evaluate();
         assertEquals(result1.doubleValue(),-4.7,0);
@@ -111,14 +82,6 @@ public class ExpressionTest {
 
     @Test
     public void divTest(){
-//        for(int i=0;i<a.length;i++){
-//            for(int j=0;j<b.length;j++){
-//                Expression mul = new Multiplication(a[i],b[j]);
-//                BigDecimal result = mul.evaluate();
-//                System.out.println(a[i].value*b[j].value);
-//                assertEquals(result.doubleValue(),a[i].value*b[j].value,0);
-//            }
-//        }
         Expression mul1 = new Division(a1,b1);
         BigDecimal result1 = mul1.evaluate();
         assertEquals(result1.doubleValue(),0.06,0);
