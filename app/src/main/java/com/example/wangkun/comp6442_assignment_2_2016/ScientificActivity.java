@@ -235,7 +235,6 @@ public class ScientificActivity extends AppCompatActivity {
                             refresh = true;
                             break;
                         }
-
                         nstr = textView1.getText().toString();
 
                         String str = hasException(nstr);
@@ -250,7 +249,7 @@ public class ScientificActivity extends AppCompatActivity {
                         } else {//if there are some errors, print out the error type.
                             textView1.setText(str);
                         }
-                        textView2.setText("");
+                        //textView2.setText("");
                         refresh = true;
                         break;
                 }

@@ -5,7 +5,6 @@
 
 
     <item android:id="@+id/scientific"
-        android:icon="@drawable/ic_extension_white_24dp"
         android:title="@string/scientific"
         android:orderInCategory="100"
         app:showAsAction="ifRoom" />
