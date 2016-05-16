@@ -17,6 +17,8 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
 
+import java.math.RoundingMode;
+
 public class MainActivity extends AppCompatActivity {
 
     private GridView gridView;
@@ -160,8 +162,9 @@ public class MainActivity extends AppCompatActivity {
 
                         String str = hasException(nstr);
                         if (str.equals(nstr)) {//no error, can evaluate the expression
-                            Expression expression = Expression.parse(nstr);
-                            nstr = expression.evaluate().toString();
+                            Expression expression = Expression.parse(nstr,0);
+                            double result = expression.evaluate().setScale(6, RoundingMode.HALF_UP).doubleValue();//keep 6 digits and round the result
+                            nstr = ""+result;
                             System.out.println(nstr);
                             textView.setText(nstr);
                         } else {//if there are some errors, print out the error type.

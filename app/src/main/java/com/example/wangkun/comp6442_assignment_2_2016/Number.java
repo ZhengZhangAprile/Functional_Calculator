@@ -16,6 +16,12 @@ public class Number extends Expression {
         this.value = x.doubleValue();
     }
 
+    public Number(double x){
+        super();
+        this.value= x;
+    }
+
+
     @Override
     public String show() {
         return x + "";

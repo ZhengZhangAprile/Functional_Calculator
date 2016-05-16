@@ -22,6 +22,7 @@ public class Division extends Expression {
 
     @Override
     public BigDecimal evaluate() {
-        return exp1.evaluate().divide(exp2.evaluate()) ;
+        return BigDecimal.valueOf(exp1.evaluate().doubleValue()/(exp2.evaluate().doubleValue())) ;
     }
+
 }

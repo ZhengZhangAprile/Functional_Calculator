@@ -7,14 +7,20 @@ import java.util.ArrayList;
  * Created by wangkun on 1/05/16.
  */
 public abstract class Expression {
-    public static Expression parse(String str) {
+    public static Expression parse(String str, int signal) {//when signal = 0, Rad mode opens, signal = 1 , Deg mode opens.
 
         if (str.equals("π")) {
-            return new Number(new BigDecimal(Math.PI));
+            if(signal==1){
+                return new Number(new BigDecimal(Math.pow(Math.PI,2)/180));
+            }else
+                return new Number(new BigDecimal(Math.PI));
         }
 
         if (str.equals("e")) {
-            return new Number(new BigDecimal(Math.E));
+            if(signal==1){
+                return new Number(new BigDecimal(Math.PI*Math.E/180));
+            }else
+                return new Number(new BigDecimal(Math.E));
         }
 
         //If the string start with operators like "+", "-" or "." we add a "0" before it
@@ -22,11 +28,32 @@ public abstract class Expression {
             str = "0" + str;
         }
 
+        char num[] = {'0','1','2','3','4','5','6','7','8','9'};
+        //if the string start with a number and near by a bracket or an unary operator, we add "*"
+        if(str.length()>1){
+            for(int i=0;i<num.length;i++){
+                if(str.charAt(0)==num[i]&&str.charAt(1)=='('){
+                    String sub1 = str.substring(0,1);
+                    String sub2 = str.substring(1);
+                    str = sub1 + "×" + sub2;
+                }
+                if(str.charAt(str.length()-1)==num[i]&&str.charAt(str.length()-2)==')'){
+                    String sub1 = str.substring(str.length()-2,str.length()-1);
+                    String sub2 = str.substring(str.length()-1);
+                    str = sub1 + "×" + sub2;
+                }
+                String sub1 = str.substring(0,1);
+                String sub2 = str.substring(1);
+                if(str.charAt(0)==num[i]&&haveScientificOperator(sub2))
+                    str = sub1 + "×" + sub2;
+            }
+        }
+
         //If the whole string is in a pair of bracket, we delete the bracket.
         if (!haveOperator(str, '+') && !haveOperator(str, '-') && !haveOperator(str, '×') && !haveOperator(str, '/') && !haveOperator(str, '^')
                 && str.charAt(0) == '(' && str.charAt(str.length() - 1) == ')') {
             str = str.substring(1, str.length() - 1);
-            return parse(str);
+            return parse(str,signal);
         }
 
         if (haveOperator(str, '+') || haveOperator(str, '-')) {
@@ -48,7 +75,7 @@ public abstract class Expression {
                     if (haveOperator(substr2, '+') || haveOperator(substr2, '-')) {
                         continue;
                     }
-                    return new Addition(parse(substr1), parse(substr2));
+                    return new Addition(parse(substr1,signal), parse(substr2,signal));
                 } else if (c == '-') {
                     if (inBrackets(n, str)) {
                         continue;
@@ -58,7 +85,7 @@ public abstract class Expression {
                     if (haveOperator(substr2, '+') || haveOperator(substr2, '-')) {
                         continue;
                     }
-                    return new Subtraction(parse(substr1), parse(substr2));
+                    return new Subtraction(parse(substr1,signal), parse(substr2,signal));
                 }
             }
         }
@@ -79,7 +106,7 @@ public abstract class Expression {
                     if (haveOperator(substr2, '×') || haveOperator(substr2, '/')) {
                         continue;
                     }
-                    return new Multiplication(parse(substr1), parse(substr2));
+                    return new Multiplication(parse(substr1,signal), parse(substr2,signal));
                 } else if (c == '/') {
                     if (inBrackets(n, str)) {
                         continue;
@@ -91,7 +118,7 @@ public abstract class Expression {
                     if (haveOperator(substr2, '×') || haveOperator(substr2, '/')) {
                         continue;
                     }
-                    return new Division(parse(substr1), parse(substr2));
+                    return new Division(parse(substr1,signal), parse(substr2,signal));
                 }
             }
         }
@@ -111,51 +138,66 @@ public abstract class Expression {
                     if (haveOperator(substr2, '^')) {
                         continue;
                     }
-                    return new Power(parse(substr1), parse(substr2));
+                    return new Power(parse(substr1,signal), parse(substr2,signal));
                 }
             }
         }
+
 
         if (haveScientificOperator(str)) {
 
             String ScientificOperator = str.substring(0, 4);
             String substr = str.substring(4);
-
+            /*if(signal==1){
+                BigDecimal b = new BigDecimal(substr);
+                b = BigDecimal.valueOf(b.doubleValue() * Math.PI / 180);
+                substr=b.toString();
+            }*/
             switch (ScientificOperator) {
                 case "sinh":
-                    return new Sinh(parse(substr));
+                    return new Sinh(parse(substr,signal));
                 case "cosh":
-                    return new Cosh(parse(substr));
+                    return new Cosh(parse(substr,signal));
                 case "tanh":
-                    return new Tanh(parse(substr));
+                    return new Tanh(parse(substr,signal));
                 case "rand":
-                    return new Rand(parse(substr));
+                    return new Rand(parse(substr,signal));
                 case "sqrt":
-                    return new Sqrt(parse(substr));
+                    return new Sqrt(parse(substr,signal));
 
 
             }
 
             ScientificOperator = str.substring(0, 3);
             substr = str.substring(3);
+            /*if(signal==1){
+                BigDecimal b = new BigDecimal(substr);
+                b = BigDecimal.valueOf(b.doubleValue() * Math.PI / 180);
+                substr=b.toString();
+            }*/
             switch (ScientificOperator) {
                 case "sin":
-                    return new Sin(parse(substr));
+                    return new Sin(parse(substr,signal));
                 case "cos":
-                    return new Cos(parse(substr));
+                    return new Cos(parse(substr,signal));
                 case "tan":
-                    return new Tan(parse(substr));
+                    return new Tan(parse(substr,signal));
                 case "abs":
-                    return new Abs(parse(substr));
+                    return new Abs(parse(substr,signal));
                 case "log":
-                    return new Log(parse(substr));
+                    return new Log(parse(substr,signal));
 
             }
             ScientificOperator = str.substring(0, 2);
             substr = str.substring(2);
+            /*if(signal==1){
+                BigDecimal b = new BigDecimal(substr);
+                b = BigDecimal.valueOf(b.doubleValue() * Math.PI / 180);
+                substr=b.toString();
+            }*/
             switch (ScientificOperator) {
                 case "ln":
-                    return new Ln(parse(substr));
+                    return new Ln(parse(substr,signal));
 
             }
         }
@@ -164,7 +206,10 @@ public abstract class Expression {
         System.out.println("the str is " + str);
         //consider the accuracy of double, choose the BigDecimal class to parse the string
         BigDecimal b = new BigDecimal(str);
-        return new Number(b);
+        if(signal==1){
+            b = BigDecimal.valueOf(b.doubleValue() * Math.PI / 180);
+            return new Number(b);
+        }else return new Number(b);
     }
 
     public static boolean haveScientificOperator(String str) {
@@ -225,5 +270,7 @@ public abstract class Expression {
 
     /* This method evaluates the expression */
     public abstract BigDecimal evaluate();
+
+
 
 }
