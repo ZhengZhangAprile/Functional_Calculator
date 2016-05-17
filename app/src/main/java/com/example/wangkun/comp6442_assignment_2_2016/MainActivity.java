@@ -162,7 +162,13 @@ public class MainActivity extends AppCompatActivity {
 
                         String str = hasException(nstr);
                         if (str.equals(nstr)) {//no error, can evaluate the expression
-                            Expression expression = Expression.parse(nstr,0);
+                            Expression expression = null;
+                            try {
+                                expression = Expression.parse(nstr, 0);
+                            } catch (Exception e) {
+                               textView.setText("ERROR");
+                                break;
+                            }
                             double result = expression.evaluate().setScale(6, RoundingMode.HALF_UP).doubleValue();//keep 6 digits and round the result
                             nstr = ""+result;
                             System.out.println(nstr);

@@ -6,12 +6,12 @@ import java.util.ArrayList;
 /**
  * Created by wangkun on 1/05/16.
  */
-public abstract class Expression {
-    public static Expression parse(String str, int signal) {//when signal = 0, Rad mode opens, signal = 1 , Deg mode opens.
+public abstract class Expression extends Throwable {
+    public static Expression parse(String str, int signal) throws Exception{//when signal = 0, Rad mode opens, signal = 1 , Deg mode opens.
 
         if (str.equals("π")) {
             if(signal==1){
-                return new Number(new BigDecimal(Math.pow(Math.PI,2)/180));
+                    return new Number(new BigDecimal(Math.pow(Math.PI, 2) / 180));
             }else
                 return new Number(new BigDecimal(Math.PI));
         }

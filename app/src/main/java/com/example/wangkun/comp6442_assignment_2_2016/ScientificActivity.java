@@ -15,7 +15,7 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
 
-import java.math.BigDecimal;
+import java.lang.*;
 import java.math.RoundingMode;
 
 public class ScientificActivity extends AppCompatActivity {
@@ -241,7 +241,13 @@ public class ScientificActivity extends AppCompatActivity {
                         if (str.equals(nstr)) {//no error, can evaluate the expression
                             if(textView2.getText().toString().equals("Deg"))
                                 signal = 1;
-                            Expression expression = Expression.parse(nstr,signal);
+                            Expression expression = null;
+                            try {
+                                expression = Expression.parse(nstr, signal);
+                            } catch (Exception e) {
+                                textView1.setText("ERROR");
+                                break;
+                            }
                             double result = expression.evaluate().setScale(6, RoundingMode.HALF_UP).doubleValue();
                             nstr = result+"";
                             System.out.println(nstr);
@@ -249,7 +255,6 @@ public class ScientificActivity extends AppCompatActivity {
                         } else {//if there are some errors, print out the error type.
                             textView1.setText(str);
                         }
-                        //textView2.setText("");
                         refresh = true;
                         break;
                 }
