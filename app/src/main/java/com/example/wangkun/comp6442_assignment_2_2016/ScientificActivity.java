@@ -37,7 +37,7 @@ public class ScientificActivity extends AppCompatActivity {
     private boolean refresh;
 
     String filename = "myfile";
-    String string="5+3/2=6.5\n5/(3-8)=-1\n";
+    String string="";
     FileOutputStream outputStream;
 
 
