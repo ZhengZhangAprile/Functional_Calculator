@@ -18,6 +18,13 @@ import android.widget.TextView;
 import java.lang.*;
 import java.math.RoundingMode;
 
+
+/**
+ * @author Kum Wang and Zheng Zhang
+ * @decription Scientific activity is for scientific mode of the calculator.Using GridViewAdapter class
+ *               build clickable views, which is very similar to button, to help user input their
+ *               calculation formulas.
+ */
 public class ScientificActivity extends AppCompatActivity {
 
     private GridView gridView;
@@ -48,7 +55,7 @@ public class ScientificActivity extends AppCompatActivity {
                     refresh = false;
                 }
                 String nstr;
-                String flag = textView2.getText().toString();
+                String flag = textView2.getText().toString();//shows the Deg or Rad signal
                 int signal =0;
                 // TODO: 11/05/16 finish switch statement
                 switch (position) {
@@ -248,6 +255,7 @@ public class ScientificActivity extends AppCompatActivity {
                                 textView1.setText("ERROR");
                                 break;
                             }
+                            //keep 6 digits and round the result
                             double result = expression.evaluate().setScale(6, RoundingMode.HALF_UP).doubleValue();
                             nstr = result+"";
                             System.out.println(nstr);
@@ -296,6 +304,8 @@ public class ScientificActivity extends AppCompatActivity {
     }
 
 
+    //conduct a GridView adapter to modify the gridView. Adding
+    //textView to show the calculator keywords and lines between them.
     private class GridViewAdapter extends BaseAdapter {
 
         private Context context;
@@ -328,7 +338,7 @@ public class ScientificActivity extends AppCompatActivity {
         }
 
 
-        //this method is for set the items' attributes.
+        //this method is for setting the items' attributes.
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             TextView result = new TextView(context);
@@ -344,6 +354,8 @@ public class ScientificActivity extends AppCompatActivity {
 
     }
 
+    //judge if this expression is legal for parse.when the str is legal return it back, else return
+    //different string to show different problem
     public String hasException(String nstr) {
         char[] operators = {'+', '-', '×', '/', '.'};
 

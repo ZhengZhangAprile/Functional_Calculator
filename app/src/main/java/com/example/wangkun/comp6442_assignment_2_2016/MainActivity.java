@@ -19,6 +19,13 @@ import android.widget.TextView;
 
 import java.math.RoundingMode;
 
+
+/**
+ * @author Zheng Zhang and Kun Wang
+ * @description Main activity shows the basic mode of the calculator. Using GridViewAdapter class
+ *               build clickable views, which is very similar to button, to help user input their
+ *               calculation formulas.
+ */
 public class MainActivity extends AppCompatActivity {
 
     private GridView gridView;
@@ -52,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
                 String nstr;
 
                 switch (position) {
-                    case 0:
+                    case 0://Rad and Deg transfer
                         int n = textView.getText().toString().length();
                         if (n <= 1) {
                             textView.setText("0");
@@ -169,7 +176,8 @@ public class MainActivity extends AppCompatActivity {
                                textView.setText("ERROR");
                                 break;
                             }
-                            double result = expression.evaluate().setScale(6, RoundingMode.HALF_UP).doubleValue();//keep 6 digits and round the result
+                            //keep 6 digits and round the result
+                            double result = expression.evaluate().setScale(6, RoundingMode.HALF_UP).doubleValue();
                             nstr = ""+result;
                             System.out.println(nstr);
                             textView.setText(nstr);
@@ -223,7 +231,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        //this method is for set the items' attributes.
+        //this method is for setting the items' attributes.
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             TextView result = new TextView(context);
