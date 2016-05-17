@@ -46,11 +46,11 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        /*try {
+        try {
             outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
         } catch (Exception e) {
             e.printStackTrace();
-        }*/
+        }
 
         gridView = (GridView) findViewById(R.id.gridView);
         registerForContextMenu(gridView);
@@ -195,6 +195,7 @@ public class MainActivity extends AppCompatActivity {
                             double result = expression.evaluate().setScale(6, RoundingMode.HALF_UP).doubleValue();
                                 if(result==1.633123935319537E16)
                                     ans = "Infinity";
+                                else ans = result+"";
                             }
                             textView.setText(ans);
                         } else {//if there are some errors, print out the error type.
@@ -202,10 +203,11 @@ public class MainActivity extends AppCompatActivity {
                             ans = str;
                         }
                         nstr = nstr + "=" + ans + "\n";
-                        System.out.println(nstr);
+                        System.out.println("string is :"+nstr);
                         try {
                             FileInputStream fin = openFileInput(filename);
                             int length = fin.available();
+                            System.out.println("file length :"+ length);
                             byte [] buffer = new byte[length];
                             fin.read(buffer);
                             String string = new String(buffer,"UTF-8");

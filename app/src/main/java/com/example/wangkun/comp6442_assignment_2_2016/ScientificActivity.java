@@ -25,17 +25,19 @@ import java.math.RoundingMode;
 /**
  * @author Kum Wang and Zheng Zhang
  * @decription Scientific activity is for scientific mode of the calculator.Using GridViewAdapter class
- *               build clickable views, which is very similar to button, to help user input their
- *               calculation formulas.
+ * build clickable views, which is very similar to button, to help user input their
+ * calculation formulas.
  */
 public class ScientificActivity extends AppCompatActivity {
 
     private GridView gridView;
-    private TextView textView1,textView2;
+    private TextView textView1, textView2;
     private boolean refresh;
 
     String filename = "myfile";
+    String string="";
     FileOutputStream outputStream;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,14 @@ public class ScientificActivity extends AppCompatActivity {
         registerForContextMenu(gridView);
 
         gridView.setAdapter(new GridViewAdapter(this));//set the gridView adapter.
+
+        try {
+            outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+            outputStream.write(string.getBytes());
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         textView1 = (TextView) findViewById(R.id.textView1);
         textView2 = (TextView) findViewById(R.id.textView2);
@@ -62,14 +72,14 @@ public class ScientificActivity extends AppCompatActivity {
                 }
                 String nstr;
                 String flag = textView2.getText().toString();//shows the Deg or Rad signal
-                int signal =0;
+                int signal = 0;
                 // TODO: 11/05/16 finish switch statement
                 switch (position) {
                     case 0://Rad/Deg
-                        if(flag.equals("")||flag.equals("Rad")){
+                        if (flag.equals("") || flag.equals("Rad")) {
                             textView2.setText("Deg");//when textView2 prints Deg, the Deg mode opens
                         }
-                        if(flag.equals("Deg")){
+                        if (flag.equals("Deg")) {
                             textView2.setText("Rad");//when textView2 prints Rad or nothing, the Rad mode opens
                         }
                         break;
@@ -252,23 +262,25 @@ public class ScientificActivity extends AppCompatActivity {
                         String ans = "";
                         String str = hasException(nstr);
                         if (str.equals(nstr)) {//no error, can evaluate the expression
-                            if(textView2.getText().toString().equals("Deg"))
+                            if (textView2.getText().toString().equals("Deg"))
                                 signal = 1;
                             Expression expression = null;
                             try {
                                 expression = Expression.parse(nstr, signal);
                             } catch (Exception e) {
                                 textView1.setText("ERROR");
-                                refresh=true;
+                                refresh = true;
                                 break;
                             }
-                            if(expression.evaluate()==null)
+                            if (expression.evaluate() == null)
                                 ans = "illegal formula";
-                            //keep 6 digits and round the result
-                            else {double result = expression.evaluate().setScale(6, RoundingMode.HALF_UP).doubleValue();
-                                if(result==1.633123935319537E16)
+                                //keep 6 digits and round the result
+                            else {
+                                double result = expression.evaluate().setScale(6, RoundingMode.HALF_UP).doubleValue();
+                                if (result == 1.633123935319537E16)
                                     ans = "Infinity";
-                                }
+                                else ans = result + "";
+                            }
                             textView1.setText(ans);
                         } else {//if there are some errors, print out the error type.
                             textView1.setText(str);
@@ -279,9 +291,9 @@ public class ScientificActivity extends AppCompatActivity {
                         try {
                             FileInputStream fin = openFileInput(filename);
                             int length = fin.available();
-                            byte [] buffer = new byte[length];
+                            byte[] buffer = new byte[length];
                             fin.read(buffer);
-                            String string = new String(buffer,"UTF-8");
+                            string = new String(buffer, "UTF-8");
                             fin.close();
                             nstr = string + nstr;
                             outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
@@ -306,6 +318,8 @@ public class ScientificActivity extends AppCompatActivity {
             }
         });
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
