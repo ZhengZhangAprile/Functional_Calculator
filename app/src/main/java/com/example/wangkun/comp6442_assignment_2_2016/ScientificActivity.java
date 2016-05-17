@@ -51,7 +51,7 @@ public class ScientificActivity extends AppCompatActivity {
 
         gridView.setAdapter(new GridViewAdapter(this));//set the gridView adapter.
 
-        try {
+        /*try {
             File f = Environment.getDataDirectory();
             //if(!f.exists()){
                 outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
@@ -60,7 +60,7 @@ public class ScientificActivity extends AppCompatActivity {
             //}
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
 
         textView1 = (TextView) findViewById(R.id.textView1);
         textView2 = (TextView) findViewById(R.id.textView2);
