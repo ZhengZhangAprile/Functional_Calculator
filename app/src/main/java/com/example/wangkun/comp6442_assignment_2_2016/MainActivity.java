@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
@@ -17,6 +18,7 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.math.RoundingMode;
@@ -35,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
     private boolean refresh;
 
     String filename = "myfile";
+    String string="";
+
     FileOutputStream outputStream;
 
 
@@ -47,7 +51,13 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         try {
-            outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+            File f = Environment.getDataDirectory();
+            //if(!f.exists()){
+
+                outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+                outputStream.write(string.getBytes());
+                outputStream.close();
+            //}
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -207,7 +217,7 @@ public class MainActivity extends AppCompatActivity {
                         try {
                             FileInputStream fin = openFileInput(filename);
                             int length = fin.available();
-                            System.out.println("file length :"+ length);
+                            System.out.println("file length :" + length);
                             byte [] buffer = new byte[length];
                             fin.read(buffer);
                             String string = new String(buffer,"UTF-8");

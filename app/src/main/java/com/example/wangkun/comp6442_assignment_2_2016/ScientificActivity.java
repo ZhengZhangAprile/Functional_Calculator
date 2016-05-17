@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.Menu;
@@ -16,6 +17,7 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.lang.*;
@@ -50,9 +52,12 @@ public class ScientificActivity extends AppCompatActivity {
         gridView.setAdapter(new GridViewAdapter(this));//set the gridView adapter.
 
         try {
-            outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
-            outputStream.write(string.getBytes());
-            outputStream.close();
+            File f = Environment.getDataDirectory();
+            //if(!f.exists()){
+                outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+                outputStream.write(string.getBytes());
+                outputStream.close();
+            //}
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -319,7 +324,12 @@ public class ScientificActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onStop(){
+        super.onStop();
 
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
