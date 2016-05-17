@@ -193,7 +193,8 @@ public class MainActivity extends AppCompatActivity {
                             }else{
                             //keep 6 digits and round the result
                             double result = expression.evaluate().setScale(6, RoundingMode.HALF_UP).doubleValue();
-                            ans = "" + result;
+                                if(result==1.633123935319537E16)
+                                    ans = "Infinity";
                             }
                             textView.setText(ans);
                         } else {//if there are some errors, print out the error type.

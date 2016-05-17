@@ -22,7 +22,7 @@ public class Tan extends Expression {
     @Override
     public BigDecimal evaluate() {
         double result = Math.tan(exp.evaluate().doubleValue());
-        if(result==1.633123935319537E16||exp.evaluate()==null)
+        if(exp.evaluate()==null)
             return null;
         else return BigDecimal.valueOf(result);
     }

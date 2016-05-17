@@ -36,11 +36,7 @@ public class ExampleUnitTest {
 
     @Test
     public void test(){
-
-        BigDecimal b1 = new BigDecimal(0.1);
-
-
-        System.out.println(b1.compareTo(BigDecimal.valueOf(0))<=0);
+        System.out.println(Math.tan(Math.PI/2));
 
     }
 }

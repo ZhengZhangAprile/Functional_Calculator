@@ -263,10 +263,11 @@ public class ScientificActivity extends AppCompatActivity {
                                 break;
                             }
                             if(expression.evaluate()==null)
-                                ans = "Infinity";
+                                ans = "illegal formula";
                             //keep 6 digits and round the result
                             else {double result = expression.evaluate().setScale(6, RoundingMode.HALF_UP).doubleValue();
-                            ans = result+"";
+                                if(result==1.633123935319537E16)
+                                    ans = "Infinity";
                                 }
                             textView1.setText(ans);
                         } else {//if there are some errors, print out the error type.
