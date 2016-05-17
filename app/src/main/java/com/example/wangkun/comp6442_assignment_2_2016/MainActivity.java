@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean refresh;
 
     String filename = "myfile";
-    String string="";
+    String string="5+3/2=6.5\n5/(3-8)=-1\n";
 
     FileOutputStream outputStream;
 
@@ -198,14 +198,14 @@ public class MainActivity extends AppCompatActivity {
                                 textView.setText("ERROR");
                                 break;
                             }
-                            if(expression.evaluate()==null){
+                            if (expression.evaluate() == null) {
                                 ans = "illegal formula ";
-                            }else{
-                            //keep 6 digits and round the result
-                            double result = expression.evaluate().setScale(6, RoundingMode.HALF_UP).doubleValue();
-                                if(result==1.633123935319537E16)
+                            } else {
+                                //keep 6 digits and round the result
+                                double result = expression.evaluate().setScale(6, RoundingMode.HALF_UP).doubleValue();
+                                if (result == 1.633123935319537E16)
                                     ans = "Infinity";
-                                else ans = result+"";
+                                else ans = result + "";
                             }
                             textView.setText(ans);
                         } else {//if there are some errors, print out the error type.
@@ -213,14 +213,14 @@ public class MainActivity extends AppCompatActivity {
                             ans = str;
                         }
                         nstr = nstr + "=" + ans + "\n";
-                        System.out.println("string is :"+nstr);
+                        System.out.println("string is :" + nstr);
                         try {
                             FileInputStream fin = openFileInput(filename);
                             int length = fin.available();
                             System.out.println("file length :" + length);
-                            byte [] buffer = new byte[length];
+                            byte[] buffer = new byte[length];
                             fin.read(buffer);
-                            String string = new String(buffer,"UTF-8");
+                            String string = new String(buffer, "UTF-8");
                             fin.close();
                             nstr = string + nstr;
                             outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
