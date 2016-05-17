@@ -4,6 +4,7 @@ package com.example.wangkun.comp6442_assignment_2_2016;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 import static org.junit.Assert.assertEquals;
 
@@ -94,7 +95,7 @@ public class ExpressionTest {
 
         Expression mul3 = new Division(a3,b3);
         BigDecimal result3 = mul3.evaluate();
-        assertEquals(result3.doubleValue(),0.1,0);
+        assertEquals(result3.setScale(6, RoundingMode.HALF_UP).doubleValue(),0.1,0);
 
     }
 }

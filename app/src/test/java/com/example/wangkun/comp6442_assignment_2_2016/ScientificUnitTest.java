@@ -24,7 +24,6 @@ public class ScientificUnitTest{
         Expression exp2 = Expression.parse("abs(1-2)",0);
         assertEquals(exp2.evaluate().intValue(),1);
         //System.out.println(exp2.evaluate());
-
     }
 
     @Test

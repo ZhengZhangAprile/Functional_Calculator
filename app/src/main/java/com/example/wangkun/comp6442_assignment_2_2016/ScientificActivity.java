@@ -253,6 +253,7 @@ public class ScientificActivity extends AppCompatActivity {
                                 expression = Expression.parse(nstr, signal);
                             } catch (Exception e) {
                                 textView1.setText("ERROR");
+                                refresh=true;
                                 break;
                             }
                             //keep 6 digits and round the result

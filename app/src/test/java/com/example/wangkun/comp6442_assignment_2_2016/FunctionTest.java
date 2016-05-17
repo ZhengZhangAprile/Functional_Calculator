@@ -11,6 +11,7 @@ import static org.junit.Assert.assertTrue;
  */
 public class FunctionTest {
     MainActivity m = new MainActivity();
+    ScientificActivity s = new ScientificActivity();
     String str1 = "()+9";
     String str2 = "9-2/";
     String str3 = "/9+8";
@@ -24,6 +25,8 @@ public class FunctionTest {
         assertEquals(m.hasException(str3),"parameter missing");
         assertEquals(m.hasException(str4),"bracket missing");
         assertEquals(m.hasException(str5),"two operators near by");
+        assertEquals(s.hasException(str4),"bracket missing");
+        assertEquals(s.hasException(str5),"two operators near by");
     }
 
     @Test
