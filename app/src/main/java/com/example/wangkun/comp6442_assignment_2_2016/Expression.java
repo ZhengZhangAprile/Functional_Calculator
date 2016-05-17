@@ -9,12 +9,12 @@ import java.util.ArrayList;
  * @author Kun Wang and Zheng Zhang
  * @despription This class is for parse the input calculation formula and get the result.
  */
-public abstract class Expression extends Throwable {
+public abstract class Expression {
     /*This function is for parsing the calculation formula, when a formula send into this function,
      *it will firstly find the operator that last calculate, which is very similar to transfer the
      *infix expression to prefix expression. Then we don't need to consider the order of operations.
      * */
-    public static Expression parse(String str, int signal) throws Exception {
+    public static Expression parse(String str, int signal){
         //when signal = 0, Rad mode opens, signal = 1 , Deg mode opens.
         if (str.equals("π")) {
             if (signal == 1) {
@@ -251,7 +251,7 @@ public abstract class Expression extends Throwable {
     }
 
     //check if an expression contains operator, if the operator is in brackets, return false
-    private static boolean haveOperator(String str, char operator) {
+    public static boolean haveOperator(String str, char operator) {
 
         char[] chars = str.toCharArray();
         for (int i = 0; i < chars.length; i++) {

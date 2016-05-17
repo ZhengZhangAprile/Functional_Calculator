@@ -10,6 +10,8 @@ import static org.junit.Assert.assertEquals;
 
 /**
  * Created by Zheng Zhang on 8/05/16.
+ * @author Zheng Zhang
+ * @decription This class tests the basic operations.
  */
 public class ExpressionTest {
     Number a1 = new Number(new BigDecimal("0.3"));

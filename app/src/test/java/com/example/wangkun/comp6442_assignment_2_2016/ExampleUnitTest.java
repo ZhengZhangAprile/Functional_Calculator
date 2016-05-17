@@ -6,10 +6,12 @@ import static org.junit.Assert.*;
 
 /**
  * To work on unit tests, switch the Test Artifact in the Build Variants view.
+ * @author Kun Wang
  */
+
 public class ExampleUnitTest {
     @Test
-    public void inBrackets_isCorrect() throws Exception {
+    public void inBrackets_isCorrect() {
 
         String str = "1*(2+3)*4";
 
