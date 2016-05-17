@@ -21,6 +21,8 @@ public class Ln extends Expression {
 
     @Override
     public BigDecimal evaluate() {
-        return BigDecimal.valueOf(Math.log(exp.evaluate().doubleValue()));
+        if(exp.evaluate()==null||exp.evaluate().compareTo(BigDecimal.valueOf(0))<=0)
+            return null;
+        else return BigDecimal.valueOf(Math.log(exp.evaluate().doubleValue()));
     }
 }

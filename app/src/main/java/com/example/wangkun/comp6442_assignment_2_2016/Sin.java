@@ -21,6 +21,8 @@ public class Sin extends Expression {
 
     @Override
     public BigDecimal evaluate() {
-        return BigDecimal.valueOf(Math.sin(exp.evaluate().doubleValue()));
+        if(exp.evaluate()==null)
+            return null;
+        else return BigDecimal.valueOf(Math.sin(exp.evaluate().doubleValue()));
     }
 }

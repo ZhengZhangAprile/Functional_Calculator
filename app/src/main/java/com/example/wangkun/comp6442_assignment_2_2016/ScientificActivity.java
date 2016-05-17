@@ -1,6 +1,7 @@
 package com.example.wangkun.comp6442_assignment_2_2016;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +16,8 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.lang.*;
 import java.math.RoundingMode;
 
@@ -30,6 +33,9 @@ public class ScientificActivity extends AppCompatActivity {
     private GridView gridView;
     private TextView textView1,textView2;
     private boolean refresh;
+
+    String filename = "myfile";
+    FileOutputStream outputStream;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -243,7 +249,7 @@ public class ScientificActivity extends AppCompatActivity {
                             break;
                         }
                         nstr = textView1.getText().toString();
-
+                        String ans = "";
                         String str = hasException(nstr);
                         if (str.equals(nstr)) {//no error, can evaluate the expression
                             if(textView2.getText().toString().equals("Deg"))
@@ -256,13 +262,32 @@ public class ScientificActivity extends AppCompatActivity {
                                 refresh=true;
                                 break;
                             }
+                            if(expression.evaluate()==null)
+                                ans = "Infinity";
                             //keep 6 digits and round the result
-                            double result = expression.evaluate().setScale(6, RoundingMode.HALF_UP).doubleValue();
-                            nstr = result+"";
-                            System.out.println(nstr);
-                            textView1.setText(nstr);
+                            else {double result = expression.evaluate().setScale(6, RoundingMode.HALF_UP).doubleValue();
+                            ans = result+"";
+                                }
+                            textView1.setText(ans);
                         } else {//if there are some errors, print out the error type.
                             textView1.setText(str);
+                            ans = str;
+                        }
+                        nstr = nstr + "=" + ans + "\n";
+                        System.out.println(nstr);
+                        try {
+                            FileInputStream fin = openFileInput(filename);
+                            int length = fin.available();
+                            byte [] buffer = new byte[length];
+                            fin.read(buffer);
+                            String string = new String(buffer,"UTF-8");
+                            fin.close();
+                            nstr = string + nstr;
+                            outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+                            outputStream.write(nstr.getBytes());
+                            outputStream.close();
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
                         refresh = true;
                         break;
@@ -296,8 +321,8 @@ public class ScientificActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.scientific) {
-
+        if (id == R.id.history) {
+            launchHistoryActivity();
             return true;
         }
 
@@ -400,6 +425,11 @@ public class ScientificActivity extends AppCompatActivity {
             }
         }
         return nstr;
+    }
+
+    private void launchHistoryActivity() {
+        Intent launchHistoryActivityIntent = new Intent(this, HistoryActivity.class);
+        startActivity(launchHistoryActivityIntent);
     }
 
 }

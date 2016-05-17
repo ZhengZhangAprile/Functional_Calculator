@@ -17,6 +17,8 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.math.RoundingMode;
 
 
@@ -32,6 +34,11 @@ public class MainActivity extends AppCompatActivity {
     private TextView textView;
     private boolean refresh;
 
+    String filename = "myfile";
+    FileOutputStream outputStream;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +46,11 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        /*try {
+            outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }*/
 
         gridView = (GridView) findViewById(R.id.gridView);
         registerForContextMenu(gridView);
@@ -166,23 +178,43 @@ public class MainActivity extends AppCompatActivity {
                         }
 
                         nstr = textView.getText().toString();
-
+                        String ans = "";
                         String str = hasException(nstr);
                         if (str.equals(nstr)) {//no error, can evaluate the expression
                             Expression expression = null;
                             try {
                                 expression = Expression.parse(nstr, 0);
                             } catch (Exception e) {
-                               textView.setText("ERROR");
+                                textView.setText("ERROR");
                                 break;
                             }
+                            if(expression.evaluate()==null){
+                                ans = "illegal formula ";
+                            }else{
                             //keep 6 digits and round the result
                             double result = expression.evaluate().setScale(6, RoundingMode.HALF_UP).doubleValue();
-                            nstr = ""+result;
-                            System.out.println(nstr);
-                            textView.setText(nstr);
+                            ans = "" + result;
+                            }
+                            textView.setText(ans);
                         } else {//if there are some errors, print out the error type.
                             textView.setText(str);
+                            ans = str;
+                        }
+                        nstr = nstr + "=" + ans + "\n";
+                        System.out.println(nstr);
+                        try {
+                            FileInputStream fin = openFileInput(filename);
+                            int length = fin.available();
+                            byte [] buffer = new byte[length];
+                            fin.read(buffer);
+                            String string = new String(buffer,"UTF-8");
+                            fin.close();
+                            nstr = string + nstr;
+                            outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+                            outputStream.write(nstr.getBytes());
+                            outputStream.close();
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
                         refresh = true;
                         break;
@@ -263,12 +295,18 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.scientific) {
-            launchScientificActivity(gridView);
+            launchScientificActivity();
+            return true;
+        }
+        if(id == R.id.history){
+            launchHistoryActivity();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
+
+
 
 
     //judge if this expression is legal for parse.when the str is legal return it back, else return
@@ -318,9 +356,14 @@ public class MainActivity extends AppCompatActivity {
         return nstr;
     }
 
-    public void launchScientificActivity(View view) {
+    public void launchScientificActivity() {
         Intent launchScientificActivityIntent = new Intent(this, ScientificActivity.class);
         startActivity(launchScientificActivityIntent);
+    }
+
+    private void launchHistoryActivity() {
+        Intent launchHistoryActivityIntent = new Intent(this, HistoryActivity.class);
+        startActivity(launchHistoryActivityIntent);
     }
 
 }

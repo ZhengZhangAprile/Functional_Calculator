@@ -2,6 +2,9 @@ package com.example.wangkun.comp6442_assignment_2_2016;
 
 import org.junit.Test;
 
+import java.math.BigDecimal;
+import java.util.Map;
+
 import static org.junit.Assert.*;
 
 /**
@@ -28,6 +31,16 @@ public class ExampleUnitTest {
 
         assertFalse(Expression.inBrackets(14,str));
         assertFalse(Expression.inBrackets(16,str));
+
+    }
+
+    @Test
+    public void test(){
+
+        BigDecimal b1 = new BigDecimal(0.1);
+
+
+        System.out.println(b1.compareTo(BigDecimal.valueOf(0))<=0);
 
     }
 }

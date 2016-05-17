@@ -22,6 +22,8 @@ public class Power extends Expression {
 
     @Override
     public BigDecimal evaluate() {
-        return BigDecimal.valueOf(Math.pow(exp1.evaluate().doubleValue(),exp2.evaluate().doubleValue()));
+        if(exp1.evaluate()==null||exp2.evaluate()==null)
+            return null;
+        else return BigDecimal.valueOf(Math.pow(exp1.evaluate().doubleValue(),exp2.evaluate().doubleValue()));
     }
 }

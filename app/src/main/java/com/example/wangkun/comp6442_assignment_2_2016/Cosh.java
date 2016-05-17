@@ -21,6 +21,9 @@ public class Cosh extends Expression {
 
     @Override
     public BigDecimal evaluate() {
-        return BigDecimal.valueOf(Math.cosh(exp.evaluate().doubleValue()));
+        if(exp.evaluate()==null){
+            return null;
+        }
+        else return BigDecimal.valueOf(Math.cosh(exp.evaluate().doubleValue()));
     }
 }

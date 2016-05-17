@@ -28,6 +28,8 @@ public class Rand extends Expression {
         int value = random.nextInt(n);
         double rtn = (double) value;
         rtn /= 1000;
-        return BigDecimal.valueOf(rtn);
+        if(exp.evaluate()==null)
+            return null;
+        else return BigDecimal.valueOf(rtn);
     }
 }

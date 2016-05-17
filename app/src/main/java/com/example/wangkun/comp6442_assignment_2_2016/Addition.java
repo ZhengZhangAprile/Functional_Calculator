@@ -22,6 +22,8 @@ public class Addition extends Expression {
 
     @Override
     public BigDecimal evaluate() {
-        return exp1.evaluate().add(exp2.evaluate()) ;
+        if(exp1.evaluate()==null||exp2.evaluate()==null)
+            return null;
+        else return exp1.evaluate().add(exp2.evaluate()) ;
     }
 }

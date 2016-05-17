@@ -21,6 +21,8 @@ public class Cos extends Expression {
 
     @Override
     public BigDecimal evaluate() {
-        return BigDecimal.valueOf(Math.cos(exp.evaluate().doubleValue()));
+        if(exp.evaluate()==null)
+            return null;
+        else return BigDecimal.valueOf(Math.cos(exp.evaluate().doubleValue()));
     }
 }

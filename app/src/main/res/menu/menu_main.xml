@@ -8,5 +8,9 @@
         android:title="@string/scientific"
         android:orderInCategory="100"
         app:showAsAction="ifRoom" />
+    <item android:id="@+id/history"
+        android:title="History"
+        android:orderInCategory="200"
+        app:showAsAction="ifRoom" />
 
 </menu>
